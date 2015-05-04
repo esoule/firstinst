@@ -1,0 +1,45 @@
+#!/bin/bash
+
+FIRSTINST_WHAT="$1"
+
+firstinst_run_scripts_sub()
+{
+    echo "++++ /etc/firstinst/${FIRSTINST_WHAT}.d" >&2
+    for i in /etc/firstinst/${FIRSTINST_WHAT}.d/*.sh ; do
+        if [ -r "$i" ]; then
+            echo "+ /bin/bash -x $i" >&2
+            /bin/bash -x $i
+        fi
+    done
+    return 0
+}
+
+firstinst_run_scripts()
+{
+    firstinst_run_scripts_sub
+    return 0
+}
+
+case "${FIRSTINST_WHAT}" in
+    firstinst-early-[0-9][0-9])
+        true
+        ;;
+    firstinst-early-[0-9][0-9]-live)
+        true
+        ;;
+    firstinst-late-[0-9][0-9])
+        true
+        ;;
+    firstinst-late-[0-9][0-9]-live)
+        true
+        ;;
+    *)
+        echo "ERROR: unrecognized firstinst request" >&2
+        exit 1
+esac
+
+test -d /root/firstinst || mkdir /root/firstinst
+firstinst_run_scripts >/tmp/${FIRSTINST_WHAT}.log 2>&1
+rv=$?
+mv    /tmp/${FIRSTINST_WHAT}.log    /root/firstinst/${FIRSTINST_WHAT}.log
+exit $rv

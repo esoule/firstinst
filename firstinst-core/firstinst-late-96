@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+# firstinst-late-96: First install init script
+#
+# chkconfig: 345 96 04
+# description: First install init script
+
+. /etc/init.d/functions
+service_name=firstinst-late-96
+
+if [ "$1" != "start" ] ; then
+    exit 0
+fi
+
+/sbin/chkconfig ${service_name} off
+
+action "Running ${service_name}" /usr/libexec/firstinst-run-parts ${service_name}
+
+RETVAL=$?
+exit $RETVAL
