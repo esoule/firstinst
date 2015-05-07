@@ -3,7 +3,7 @@
 
 Name:           firstinst-core
 Version:        1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        First Install Scripts for CentOS
 
 Group:          System Environment/Base
@@ -25,7 +25,7 @@ Source101:      README.md
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch:      noarch
-Requires:       bash, initscripts
+Requires:       bash, chkconfig, coreutils, initscripts
 
 %description
 First Install Scripts for CentOS
@@ -101,6 +101,9 @@ rm -rf $RPM_BUILD_ROOT
 /etc/rc.d/init.d
 
 %changelog
+* Wed May  6 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.0-2
+- add chkconfig, coreutils to Requires
+
 * Sun May  3 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.0-1
 - Initial Package
 
