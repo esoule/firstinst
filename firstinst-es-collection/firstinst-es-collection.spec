@@ -5,9 +5,15 @@
 %define _fi_inst_file()    install -pm 0644 %{_sourcedir}/%3 ${RPM_BUILD_ROOT}%{_fi_confdir}/%1.d/%2-%3 \
 %{nil}
 
+%define _this_package_contains_text This package is part of First Install Scripts collection.\
+This package contains the scripts that were run during the\
+installation of your system. These files are of little use\
+on an already installed system.\
+%{nil}
+
 Name:           firstinst-es-collection
 Version:        1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        collection of first install tasks
 
 Group:          System Environment/Base
@@ -128,10 +134,13 @@ install -pm 0600 %{SOURCE4508} ${RPM_BUILD_ROOT}%{_fi_confdir}/firewall-config
 
 
 %package -n firstinst-etckeeper-commit
-Summary: etckeeper commit
+Summary: scripts that record changes in /etc with etckeeper (for system install only)
 
 %description -n firstinst-etckeeper-commit
-etckeeper commit
+Scripts that record changes in /etc with etckeeper during
+first boot of the installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-etckeeper-commit
 %defattr(-,root,root,-)
@@ -141,10 +150,14 @@ etckeeper commit
 
 
 %package -n firstinst-gconf-custom
-Summary: gconf customizations
+Summary: scripts that store gconf customizations (for system install only)
 
 %description -n firstinst-gconf-custom
-gconf customizations
+Scripts that store gconf customizations during first boot
+of the installed system. Other firstinst-gconf-* packages
+need this one to be installed to work properly.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-gconf-custom
 %defattr(-,root,root,-)
@@ -154,10 +167,14 @@ gconf customizations
 
 
 %package -n firstinst-firewall-config
-Summary: first install script firewall-config.sh
+Summary: scripts that apply predefined firewall configuration (for system install only)
 
 %description -n firstinst-firewall-config
-first install script firewall-config.sh
+Scripts that apply predefined firewall configuration (allow
+NFS server, IPv4 forwarding, synergy, iperf server) during
+first boot of the installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-firewall-config
 %defattr(-,root,root,-)
@@ -168,10 +185,16 @@ first install script firewall-config.sh
 
 
 %package -n firstinst-fstab-noatime
-Summary: first install script fstab-noatime.sh
+Summary: scripts that enable noatime option in fstab (for system install only)
 
 %description -n firstinst-fstab-noatime
-first install script fstab-noatime.sh
+Scripts that enable noatime option in fstab for ext2, ext3
+and ext4 file systems.
+
+Changes are set during first boot of the installed system
+and take effect at the second boot of the installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-fstab-noatime
 %defattr(-,root,root,-)
@@ -180,10 +203,13 @@ first install script fstab-noatime.sh
 
 
 %package -n firstinst-firstinst-services-off
-Summary: first install script firstinst-services-off.sh
+Summary: scripts that disable firstinst services (for system install only)
 
 %description -n firstinst-firstinst-services-off
-first install script firstinst-services-off.sh
+Scripts that disable firstinst services at the end of first
+boot of the installed system, so that they do not run again.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-firstinst-services-off
 %defattr(-,root,root,-)
@@ -192,10 +218,14 @@ first install script firstinst-services-off.sh
 
 
 %package -n firstinst-NetworkManager-sysctl-fixup
-Summary: first install script NetworkManager-sysctl-fixup.sh
+Summary: scripts that fix NetworkManager's sysctl processing (for system install only)
 
 %description -n firstinst-NetworkManager-sysctl-fixup
-first install script NetworkManager-sysctl-fixup.sh
+Scripts that fix NetworkManager's sysctl processing
+(workaround for rhbz #1213118), during first boot of the
+installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-NetworkManager-sysctl-fixup
 %defattr(-,root,root,-)
@@ -204,10 +234,13 @@ first install script NetworkManager-sysctl-fixup.sh
 
 
 %package -n firstinst-avahi-daemon-off
-Summary: first install script avahi-daemon-off.sh
+Summary: scripts that disable avahi-daemon (for system install only)
 
 %description -n firstinst-avahi-daemon-off
-first install script avahi-daemon-off.sh
+Scripts that disable avahi-daemon, during first boot of the
+installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-avahi-daemon-off
 %defattr(-,root,root,-)
@@ -216,10 +249,18 @@ first install script avahi-daemon-off.sh
 
 
 %package -n firstinst-developers-developers
-Summary: first install script developers-developers.sh
+Summary: scripts that create developers group (for system install only)
 
 %description -n firstinst-developers-developers
-first install script developers-developers.sh
+Scripts that create developers group. On LiveCD, these
+scripts also add the centoslive user to developers, uucp,
+dialout and wireshark group.
+
+See also: package os-tweaks-sudo-developers grants the
+developers group to run certain things (iotop, networking)
+as root.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-developers-developers
 %defattr(-,root,root,-)
@@ -228,10 +269,14 @@ first install script developers-developers.sh
 
 
 %package -n firstinst-gconf-font-rendering-config
-Summary: first install script gconf-font-rendering-config.sh
+Summary: scripts that enable font hinting, subpixel rendering (for system install only)
+Requires: firstinst-gconf-custom
 
 %description -n firstinst-gconf-font-rendering-config
-first install script gconf-font-rendering-config.sh
+Scripts that enable font hinting, subpixel rendering, for
+all GNOME users, during first boot of the installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-gconf-font-rendering-config
 %defattr(-,root,root,-)
@@ -240,10 +285,14 @@ first install script gconf-font-rendering-config.sh
 
 
 %package -n firstinst-gconf-gpk-update-icon-off
-Summary: first install script gconf-gpk-update-icon-off.sh
+Summary: scripts that remove software update icon in GNOME (for system install only)
+Requires: firstinst-gconf-custom
 
 %description -n firstinst-gconf-gpk-update-icon-off
-first install script gconf-gpk-update-icon-off.sh
+Scripts that remove software update icon in GNOME, for
+all GNOME users, during first boot of the installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-gconf-gpk-update-icon-off
 %defattr(-,root,root,-)
@@ -252,10 +301,14 @@ first install script gconf-gpk-update-icon-off.sh
 
 
 %package -n firstinst-gconf-login-user-list-off
-Summary: first install script gconf-login-user-list-off.sh
+Summary: scripts that remove the user list from GNOME login screen (for system install only)
+Requires: firstinst-gconf-custom
 
 %description -n firstinst-gconf-login-user-list-off
-first install script gconf-login-user-list-off.sh
+Scripts that remove the user list from GNOME login screen,
+during first boot of the installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-gconf-login-user-list-off
 %defattr(-,root,root,-)
@@ -264,10 +317,14 @@ first install script gconf-login-user-list-off.sh
 
 
 %package -n firstinst-gconf-screensaver-lock-off
-Summary: first install script gconf-screensaver-lock-off.sh
+Summary: scripts that disable screensaver password in GNOME (for system install only)
+Requires: firstinst-gconf-custom
 
 %description -n firstinst-gconf-screensaver-lock-off
-first install script gconf-screensaver-lock-off.sh
+Scripts that disable screensaver password in GNOME,
+during first boot of the installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-gconf-screensaver-lock-off
 %defattr(-,root,root,-)
@@ -276,10 +333,13 @@ first install script gconf-screensaver-lock-off.sh
 
 
 %package -n firstinst-gdm-config
-Summary: first install script gdm-config.sh
+Summary: scripts that disallow root login in GNOME (for system install only)
 
 %description -n firstinst-gdm-config
-first install script gdm-config.sh
+Scripts that disallow root login in GNOME,
+during first boot of the installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-gdm-config
 %defattr(-,root,root,-)
@@ -288,10 +348,13 @@ first install script gdm-config.sh
 
 
 %package -n firstinst-git-lola-config
-Summary: first install script git-lola-config.sh
+Summary: scripts that enable colours and aliases in git (for system install only)
 
 %description -n firstinst-git-lola-config
-first install script git-lola-config.sh
+Scripts that enable colours and aliases in git,
+system-wide, during first boot of the installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-git-lola-config
 %defattr(-,root,root,-)
@@ -300,10 +363,13 @@ first install script git-lola-config.sh
 
 
 %package -n firstinst-gpk-update-icon-off
-Summary: first install script gpk-update-icon-off.sh
+Summary: scripts that remove software update icon in GNOME (for system install only)
 
 %description -n firstinst-gpk-update-icon-off
-first install script gpk-update-icon-off.sh
+Scripts that remove software update icon in GNOME, for
+all GNOME users, during first boot of the installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-gpk-update-icon-off
 %defattr(-,root,root,-)
@@ -312,10 +378,15 @@ first install script gpk-update-icon-off.sh
 
 
 %package -n firstinst-grub-config
-Summary: first install script grub-config.sh
+Summary: scripts that change bootloader config (for system install only)
 
 %description -n firstinst-grub-config
-first install script grub-config.sh
+Scripts that change bootloader configuration (show menu,
+increase timeout, disable graphical boot, set vga=791).
+Changes are set during first boot of the installed system
+and take effect at the second boot of the installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-grub-config
 %defattr(-,root,root,-)
@@ -324,10 +395,13 @@ first install script grub-config.sh
 
 
 %package -n firstinst-inputrc-config
-Summary: first install script inputrc-config.sh
+Summary: scripts that disable beep on CLI (for system install only)
 
 %description -n firstinst-inputrc-config
-first install script inputrc-config.sh
+Scripts that disable beep on CLI, add some PuTTY input key
+mappings, during first boot of the installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-inputrc-config
 %defattr(-,root,root,-)
@@ -336,10 +410,13 @@ first install script inputrc-config.sh
 
 
 %package -n firstinst-minicom-ttyS0-config
-Summary: first install script minicom-ttyS0-config.sh
+Summary: scripts that provide default minicom config (for system install only)
 
 %description -n firstinst-minicom-ttyS0-config
-first install script minicom-ttyS0-config.sh
+Scripts that provide default minicom config, during first
+boot of the installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-minicom-ttyS0-config
 %defattr(-,root,root,-)
@@ -348,10 +425,13 @@ first install script minicom-ttyS0-config.sh
 
 
 %package -n firstinst-nfs-config
-Summary: first install script nfs-config.sh
+Summary: scripts that make NFS friendly to firewalls (for system install only)
 
 %description -n firstinst-nfs-config
-first install script nfs-config.sh
+Scripts that edit NFS server configs to make them friendly
+to firewalls, during first boot of the installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-nfs-config
 %defattr(-,root,root,-)
@@ -360,10 +440,13 @@ first install script nfs-config.sh
 
 
 %package -n firstinst-nginx-off
-Summary: first install script nginx-off.sh
+Summary: scripts that disable nginx service (for system install only)
 
 %description -n firstinst-nginx-off
-first install script nginx-off.sh
+Scripts that disable nginx service, during first boot of
+the installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-nginx-off
 %defattr(-,root,root,-)
@@ -372,10 +455,13 @@ first install script nginx-off.sh
 
 
 %package -n firstinst-prelink-off
-Summary: first install script prelink-off.sh
+Summary: scripts that provide config that disables prelink (for system install only)
 
 %description -n firstinst-prelink-off
-first install script prelink-off.sh
+Scripts that provide config that disables prelink, during
+first boot of the installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-prelink-off
 %defattr(-,root,root,-)
@@ -384,10 +470,13 @@ first install script prelink-off.sh
 
 
 %package -n firstinst-root-gitconfig
-Summary: first install script root-gitconfig.sh
+Summary: scripts that provide .gitconfig for root user (for system install only)
 
 %description -n firstinst-root-gitconfig
-first install script root-gitconfig.sh
+Scripts that provide .gitconfig for root user, during
+first boot of the installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-root-gitconfig
 %defattr(-,root,root,-)
@@ -396,10 +485,14 @@ first install script root-gitconfig.sh
 
 
 %package -n firstinst-sshd-config
-Summary: first install script sshd-config.sh
+Summary: scripts that change SSH server options (for system install only)
 
 %description -n firstinst-sshd-config
-first install script sshd-config.sh
+Scripts that change SSH server options (disable root login,
+disable reverse DNS lookups), during first boot of the
+installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-sshd-config
 %defattr(-,root,root,-)
@@ -408,10 +501,14 @@ first install script sshd-config.sh
 
 
 %package -n firstinst-tftp-config
-Summary: first install script tftp-config.sh
+Summary: scripts that change TFTP server options (for system install only)
 
 %description -n firstinst-tftp-config
-first install script tftp-config.sh
+Scripts that change TFTP server options (set root TFTP
+directory to /srv/tftpboot), during first boot of the
+installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-tftp-config
 %defattr(-,root,root,-)
@@ -420,10 +517,14 @@ first install script tftp-config.sh
 
 
 %package -n firstinst-vsftpd-config
-Summary: first install script vsftpd-config.sh
+Summary: scripts that change vsFTPd server options (for system install only)
 
 %description -n firstinst-vsftpd-config
-first install script vsftpd-config.sh
+Scripts that change vsFTPd server options (disable reverse
+DNS lookups, use local time in file listings), during first
+boot of the installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-vsftpd-config
 %defattr(-,root,root,-)
@@ -432,10 +533,14 @@ first install script vsftpd-config.sh
 
 
 %package -n firstinst-yum-config
-Summary: first install script yum-config.sh
+Summary: scripts that change yum configuration (for system install only)
 
 %description -n firstinst-yum-config
-first install script yum-config.sh
+Scripts that change yum configuration (exclude Facebook and
+University of Ottawa from mirror lists for performance
+reasons), during first boot of the installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-yum-config
 %defattr(-,root,root,-)
@@ -444,10 +549,13 @@ first install script yum-config.sh
 
 
 %package -n firstinst-yum-epel-repo-config
-Summary: first install script yum-epel-repo-config.sh
+Summary: scripts that change EPEL repository config (for system install only)
 
 %description -n firstinst-yum-epel-repo-config
-first install script yum-epel-repo-config.sh
+Scripts that change EPEL repository config (exclude wine
+packages), during first boot of the installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-yum-epel-repo-config
 %defattr(-,root,root,-)
@@ -456,10 +564,14 @@ first install script yum-epel-repo-config.sh
 
 
 %package -n firstinst-yum-rpmforge-repo-config
-Summary: first install script yum-rpmforge-repo-config.sh
+Summary: scripts that change rpmforge repository config (for system install only)
 
 %description -n firstinst-yum-rpmforge-repo-config
-first install script yum-rpmforge-repo-config.sh
+Scripts that change rpmforge repository config (disable
+the repository by default, exclude sqlite packages), during
+first boot of the installed system.
+
+%{_this_package_contains_text}
 
 %files -n firstinst-yum-rpmforge-repo-config
 %defattr(-,root,root,-)
@@ -468,6 +580,9 @@ first install script yum-rpmforge-repo-config.sh
 
 
 %changelog
+* Thu May  7 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.0-2
+- Provide better package descriptions
+
 * Tue May  5 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.0-1
 - Initial Package
 
