@@ -3,8 +3,8 @@
 
 Name:           livesys-service
 Version:        1.0
-Release:        1%{?dist}
-Summary:        LiveCD service scripts
+Release:        2%{?dist}
+Summary:        LiveCD service scripts (for LiveCD runs only)
 
 Group:          System Environment/Base
 License:        GPLv2
@@ -24,6 +24,10 @@ Requires:       bash, chkconfig, coreutils, initscripts
 
 %description
 LiveCD service scripts (extracted from kickstart files)
+
+This package contains the scripts that are run during the
+LiveCD runs of CentOS. These files are of little use
+on an installed system.
 
 %prep
 %setup -q  -c -T
@@ -65,5 +69,8 @@ rm -rf $RPM_BUILD_ROOT
 /etc/rc.d/init.d
 
 %changelog
+* Thu May  7 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.0-2
+- Provide better package descriptions
+
 * Wed May  6 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.0-1
 - Initial Package
