@@ -580,6 +580,12 @@ first boot of the installed system.
 
 
 %changelog
+* Thu May  7 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.1-2
+- do not initialize etckeeper in /etc if initialized during
+  live image generation
+- make second etckeeper commit only if git repository was
+  initialized
+
 * Thu May  7 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.0-2
 - Provide better package descriptions
 

@@ -5,6 +5,12 @@ if [ ! -x /usr/bin/etckeeper ] ; then
     exit 0
 fi
 
+if [ -d /etc/.git ] ; then
+## NOTE: etckeeper init and etckeeper commit were
+## performed during live image generation
+    exit 0
+fi
+
 # workaround for "fatal: $HOME is not set"
 if [ -z "$HOME" ] ; then
     export HOME=/root
@@ -13,6 +19,7 @@ fi
 cat <<"____EOF" >/etc/.gitignore
 # begin section inserted by centos-livecd-scripts
 /group-
+/gshadow
 /gshadow-
 /passwd-
 /shadow
@@ -36,6 +43,8 @@ ____EOF
 
 /usr/bin/etckeeper commit "Initial commit"    >/dev/null
 
-/usr/bin/etckeeper vcs gc    >/dev/null
+if ! is_liveimg_run ; then
+    /usr/bin/etckeeper vcs gc    >/dev/null
+fi
 
 exit 0
