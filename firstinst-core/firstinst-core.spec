@@ -1,9 +1,10 @@
 
-%define _fi_confdir %{_sysconfdir}/firstinst
+%define firstinsthome /usr/lib/firstinst
+%define firstinstexec /usr/libexec/firstinst
 
 Name:           firstinst-core
-Version:        1.0
-Release:        2%{?dist}
+Version:        1.1
+Release:        3%{?dist}
 Summary:        First Install Scripts for CentOS
 
 Group:          System Environment/Base
@@ -53,20 +54,19 @@ install -pm 0644 %{SOURCE101} .
 %install
 rm -rf ${RPM_BUILD_ROOT}
 
-install -dm 0755 ${RPM_BUILD_ROOT}%{_sysconfdir}
 install -dm 0755 ${RPM_BUILD_ROOT}/etc/rc.d/init.d
-install -dm 0755 ${RPM_BUILD_ROOT}%{_fi_confdir}
-install -dm 0755 ${RPM_BUILD_ROOT}%{_libexecdir}
+install -dm 0755 ${RPM_BUILD_ROOT}%{firstinsthome}
+install -dm 0755 ${RPM_BUILD_ROOT}%{firstinstexec}
 
-install -pm 0644 firstinst-functions  ${RPM_BUILD_ROOT}%{_fi_confdir}/firstinst-functions
-install -pm 0755 firstinst-run-parts  ${RPM_BUILD_ROOT}%{_libexecdir}/firstinst-run-parts
+install -pm 0644 firstinst-functions  ${RPM_BUILD_ROOT}%{firstinsthome}/firstinst-functions
+install -pm 0755 firstinst-run-parts  ${RPM_BUILD_ROOT}%{firstinstexec}/firstinst-run-parts
 
 for service_name in firstinst-early-00-live firstinst-late-97-live ; do
-    install -dm 0755 ${RPM_BUILD_ROOT}%{_fi_confdir}/${service_name}.d
+    install -dm 0755 ${RPM_BUILD_ROOT}%{firstinsthome}/${service_name}.d
 done
 
 for service_name in firstinst-early-02 firstinst-late-96 firstinst-late-98 firstinst-late-99 ; do
-    install -dm 0755 ${RPM_BUILD_ROOT}%{_fi_confdir}/${service_name}.d
+    install -dm 0755 ${RPM_BUILD_ROOT}%{firstinsthome}/${service_name}.d
     install -pm 0755 ${service_name}    ${RPM_BUILD_ROOT}/etc/rc.d/init.d/${service_name}
 done
 
@@ -90,17 +90,21 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %doc COPYING README.md
-%{_fi_confdir}/firstinst-functions
-%{_libexecdir}/firstinst-run-parts
-%dir %{_fi_confdir}/firstinst-early-00-live.d
-%dir %{_fi_confdir}/firstinst-early-02.d
-%dir %{_fi_confdir}/firstinst-late-96.d
-%dir %{_fi_confdir}/firstinst-late-97-live.d
-%dir %{_fi_confdir}/firstinst-late-98.d
-%dir %{_fi_confdir}/firstinst-late-99.d
-/etc/rc.d/init.d
+%{firstinsthome}/firstinst-functions
+%{firstinstexec}/firstinst-run-parts
+%dir %{firstinsthome}/firstinst-early-00-live.d
+%dir %{firstinsthome}/firstinst-early-02.d
+%dir %{firstinsthome}/firstinst-late-96.d
+%dir %{firstinsthome}/firstinst-late-97-live.d
+%dir %{firstinsthome}/firstinst-late-98.d
+%dir %{firstinsthome}/firstinst-late-99.d
+/etc/rc.d/init.d/firstinst*
 
 %changelog
+* Sat May  9 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.1-3
+- move all items to /usr/lib/firstinst, and scripts
+  to /usr/libexec/firstinst
+
 * Wed May  6 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.0-2
 - add chkconfig, coreutils to Requires
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-source /etc/firstinst/firstinst-functions
+source /usr/lib/firstinst/firstinst-functions
 
 if [ ! -x /usr/bin/etckeeper ] ; then
     exit 0

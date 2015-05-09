@@ -1,5 +1,5 @@
 #!/bin/bash
-source /etc/firstinst/firstinst-functions
+source /usr/lib/firstinst/firstinst-functions
 
 if is_liveimg_run ; then
     exit 0

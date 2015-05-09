@@ -4,8 +4,8 @@ FIRSTINST_WHAT="$1"
 
 firstinst_run_scripts_sub()
 {
-    echo "++++ /etc/firstinst/${FIRSTINST_WHAT}.d" >&2
-    for i in /etc/firstinst/${FIRSTINST_WHAT}.d/*.sh ; do
+    echo "++++ /usr/lib/firstinst/${FIRSTINST_WHAT}.d" >&2
+    for i in /usr/lib/firstinst/${FIRSTINST_WHAT}.d/*.sh ; do
         if [ -r "$i" ]; then
             echo "+ /bin/bash -x $i" >&2
             /bin/bash -x $i

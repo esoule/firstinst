@@ -1,5 +1,5 @@
 #!/bin/bash
-source /etc/firstinst/firstinst-functions
+source /usr/lib/firstinst/firstinst-functions
 ##
 ## disable avahi-daemon in both Live and hard drive
 ##

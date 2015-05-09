@@ -1,5 +1,5 @@
 #!/bin/bash
-source /etc/firstinst/firstinst-functions
+source /usr/lib/firstinst/firstinst-functions
 
 ##
 ## require NetworkManager apply both /etc/sysctl.conf and /etc/sysctl.d/*

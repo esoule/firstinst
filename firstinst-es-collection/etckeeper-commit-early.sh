@@ -1,5 +1,5 @@
 #!/bin/bash
-source /etc/firstinst/firstinst-functions
+source /usr/lib/firstinst/firstinst-functions
 
 if [ ! -x /usr/bin/etckeeper ] ; then
     exit 0
@@ -24,6 +24,8 @@ cat <<"____EOF" >/etc/.gitignore
 /passwd-
 /shadow
 /shadow-
+/rc.d/rc[0-9].d/[KS][0-9][0-9]firstinst*
+/rc.d/rc[0-9].d/[KS][0-9][0-9]livesys*
 /selinux/targeted/policy/
 /selinux/targeted/modules/active/*.pp
 /selinux/targeted/modules/active/commit_num
@@ -31,7 +33,6 @@ cat <<"____EOF" >/etc/.gitignore
 /selinux/targeted/modules/active/policy.kern
 yum.repos.d/tmp-*.repo
 *.bak
-
 
 # end section inserted by centos-livecd-scripts
 #

@@ -1,5 +1,5 @@
 #!/bin/bash
-source /etc/firstinst/firstinst-functions
+source /usr/lib/firstinst/firstinst-functions
 
 xmlfile=`mktemp /tmp/update-icon-frequency_get_updates.XXXXXXXXXX.xml`
 

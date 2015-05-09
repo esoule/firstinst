@@ -14,7 +14,7 @@ fi
 
 /sbin/chkconfig ${service_name} off
 
-action "Running ${service_name}" /usr/libexec/firstinst-run-parts ${service_name}
+action "Running ${service_name}" /usr/libexec/firstinst/firstinst-run-parts ${service_name}
 
 RETVAL=$?
 exit $RETVAL

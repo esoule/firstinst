@@ -1,8 +1,10 @@
 
-%define _fi_confdir %{_sysconfdir}/firstinst
-%define _fi_inst_dir()     install -dm 0755 %{buildroot}/%{_fi_confdir}/%1.d \
+%define firstinsthome /usr/lib/firstinst
+%define firstinstexec /usr/libexec/firstinst
+
+%define _fi_inst_dir()     install -dm 0755 %{buildroot}/%{firstinsthome}/%1.d \
 %{nil}
-%define _fi_inst_file()    install -pm 0644 %{_sourcedir}/%3 ${RPM_BUILD_ROOT}%{_fi_confdir}/%1.d/%2-%3 \
+%define _fi_inst_file()    install -pm 0644 %{_sourcedir}/%3 %{buildroot}/%{firstinsthome}/%1.d/%2-%3 \
 %{nil}
 
 %define _this_package_contains_text This package is part of First Install Scripts collection.\
@@ -12,8 +14,8 @@ on an already installed system.\
 %{nil}
 
 Name:           firstinst-es-collection
-Version:        1.0
-Release:        2%{?dist}
+Version:        1.2
+Release:        3%{?dist}
 Summary:        collection of first install tasks
 
 Group:          System Environment/Base
@@ -77,7 +79,7 @@ collection of first install tasks
 %build
 
 %install
-rm -rf ${RPM_BUILD_ROOT}
+rm -rf %{buildroot}
 
 %_fi_inst_dir     firstinst-early-02
 %_fi_inst_dir     firstinst-late-96
@@ -119,18 +121,18 @@ rm -rf ${RPM_BUILD_ROOT}
 %_fi_inst_file    firstinst-late-99         950    etckeeper-commit-late.sh
 
 
-install -dm 0755 ${RPM_BUILD_ROOT}%{_fi_confdir}/firewall-config
-install -pm 0600 %{SOURCE4501} ${RPM_BUILD_ROOT}%{_fi_confdir}/firewall-config
-install -pm 0600 %{SOURCE4502} ${RPM_BUILD_ROOT}%{_fi_confdir}/firewall-config
-install -pm 0600 %{SOURCE4503} ${RPM_BUILD_ROOT}%{_fi_confdir}/firewall-config
-install -pm 0600 %{SOURCE4504} ${RPM_BUILD_ROOT}%{_fi_confdir}/firewall-config
-install -pm 0600 %{SOURCE4505} ${RPM_BUILD_ROOT}%{_fi_confdir}/firewall-config
-install -pm 0600 %{SOURCE4506} ${RPM_BUILD_ROOT}%{_fi_confdir}/firewall-config
-install -pm 0600 %{SOURCE4507} ${RPM_BUILD_ROOT}%{_fi_confdir}/firewall-config
-install -pm 0600 %{SOURCE4508} ${RPM_BUILD_ROOT}%{_fi_confdir}/firewall-config
+install -dm 0755 ${RPM_BUILD_ROOT}%{firstinsthome}/firewall-config
+install -pm 0600 %{SOURCE4501} ${RPM_BUILD_ROOT}%{firstinsthome}/firewall-config
+install -pm 0600 %{SOURCE4502} ${RPM_BUILD_ROOT}%{firstinsthome}/firewall-config
+install -pm 0600 %{SOURCE4503} ${RPM_BUILD_ROOT}%{firstinsthome}/firewall-config
+install -pm 0600 %{SOURCE4504} ${RPM_BUILD_ROOT}%{firstinsthome}/firewall-config
+install -pm 0600 %{SOURCE4505} ${RPM_BUILD_ROOT}%{firstinsthome}/firewall-config
+install -pm 0600 %{SOURCE4506} ${RPM_BUILD_ROOT}%{firstinsthome}/firewall-config
+install -pm 0600 %{SOURCE4507} ${RPM_BUILD_ROOT}%{firstinsthome}/firewall-config
+install -pm 0600 %{SOURCE4508} ${RPM_BUILD_ROOT}%{firstinsthome}/firewall-config
 
 (cd ${RPM_BUILD_ROOT} && find etc/firstinst -type f ) | sort
-/usr/bin/tree -AanFp ${RPM_BUILD_ROOT}%{_fi_confdir}
+/usr/bin/tree -AanFp ${RPM_BUILD_ROOT}%{firstinsthome}
 
 
 %package -n firstinst-etckeeper-commit
@@ -144,8 +146,8 @@ first boot of the installed system.
 
 %files -n firstinst-etckeeper-commit
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/050-etckeeper-commit-early.sh
-%{_fi_confdir}/firstinst-late-99.d/950-etckeeper-commit-late.sh
+%{firstinsthome}/firstinst-early-02.d/050-etckeeper-commit-early.sh
+%{firstinsthome}/firstinst-late-99.d/950-etckeeper-commit-late.sh
 
 
 
@@ -161,8 +163,8 @@ need this one to be installed to work properly.
 
 %files -n firstinst-gconf-custom
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/200-gconf-custom-start.sh
-%{_fi_confdir}/firstinst-early-02.d/800-gconf-custom-finish.sh
+%{firstinsthome}/firstinst-early-02.d/200-gconf-custom-start.sh
+%{firstinsthome}/firstinst-early-02.d/800-gconf-custom-finish.sh
 
 
 
@@ -178,9 +180,9 @@ first boot of the installed system.
 
 %files -n firstinst-firewall-config
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/250-firewall-config.sh
+%{firstinsthome}/firstinst-early-02.d/250-firewall-config.sh
 %defattr(0600,root,root,-)
-%{_fi_confdir}/firewall-config/*.txt
+%{firstinsthome}/firewall-config/*.txt
 
 
 
@@ -198,7 +200,7 @@ and take effect at the second boot of the installed system.
 
 %files -n firstinst-fstab-noatime
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-late-96.d/470-fstab-noatime.sh
+%{firstinsthome}/firstinst-late-96.d/470-fstab-noatime.sh
 
 
 
@@ -213,7 +215,7 @@ boot of the installed system, so that they do not run again.
 
 %files -n firstinst-firstinst-services-off
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-late-99.d/900-firstinst-services-off.sh
+%{firstinsthome}/firstinst-late-99.d/900-firstinst-services-off.sh
 
 
 
@@ -229,7 +231,7 @@ installed system.
 
 %files -n firstinst-NetworkManager-sysctl-fixup
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/400-NetworkManager-sysctl-fixup.sh
+%{firstinsthome}/firstinst-early-02.d/400-NetworkManager-sysctl-fixup.sh
 
 
 
@@ -244,7 +246,7 @@ installed system.
 
 %files -n firstinst-avahi-daemon-off
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/410-avahi-daemon-off.sh
+%{firstinsthome}/firstinst-early-02.d/410-avahi-daemon-off.sh
 
 
 
@@ -264,7 +266,7 @@ as root.
 
 %files -n firstinst-developers-developers
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/420-developers-developers.sh
+%{firstinsthome}/firstinst-early-02.d/420-developers-developers.sh
 
 
 
@@ -280,7 +282,7 @@ all GNOME users, during first boot of the installed system.
 
 %files -n firstinst-gconf-font-rendering-config
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/500-gconf-font-rendering-config.sh
+%{firstinsthome}/firstinst-early-02.d/500-gconf-font-rendering-config.sh
 
 
 
@@ -296,7 +298,7 @@ all GNOME users, during first boot of the installed system.
 
 %files -n firstinst-gconf-gpk-update-icon-off
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/510-gconf-gpk-update-icon-off.sh
+%{firstinsthome}/firstinst-early-02.d/510-gconf-gpk-update-icon-off.sh
 
 
 
@@ -312,7 +314,7 @@ during first boot of the installed system.
 
 %files -n firstinst-gconf-login-user-list-off
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/520-gconf-login-user-list-off.sh
+%{firstinsthome}/firstinst-early-02.d/520-gconf-login-user-list-off.sh
 
 
 
@@ -328,7 +330,7 @@ during first boot of the installed system.
 
 %files -n firstinst-gconf-screensaver-lock-off
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/530-gconf-screensaver-lock-off.sh
+%{firstinsthome}/firstinst-early-02.d/530-gconf-screensaver-lock-off.sh
 
 
 
@@ -343,7 +345,7 @@ during first boot of the installed system.
 
 %files -n firstinst-gdm-config
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/540-gdm-config.sh
+%{firstinsthome}/firstinst-early-02.d/540-gdm-config.sh
 
 
 
@@ -358,7 +360,7 @@ system-wide, during first boot of the installed system.
 
 %files -n firstinst-git-lola-config
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/550-git-lola-config.sh
+%{firstinsthome}/firstinst-early-02.d/550-git-lola-config.sh
 
 
 
@@ -373,7 +375,7 @@ all GNOME users, during first boot of the installed system.
 
 %files -n firstinst-gpk-update-icon-off
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/560-gpk-update-icon-off.sh
+%{firstinsthome}/firstinst-early-02.d/560-gpk-update-icon-off.sh
 
 
 
@@ -390,7 +392,7 @@ and take effect at the second boot of the installed system.
 
 %files -n firstinst-grub-config
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/570-grub-config.sh
+%{firstinsthome}/firstinst-early-02.d/570-grub-config.sh
 
 
 
@@ -405,7 +407,7 @@ mappings, during first boot of the installed system.
 
 %files -n firstinst-inputrc-config
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/580-inputrc-config.sh
+%{firstinsthome}/firstinst-early-02.d/580-inputrc-config.sh
 
 
 
@@ -420,7 +422,7 @@ boot of the installed system.
 
 %files -n firstinst-minicom-ttyS0-config
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/590-minicom-ttyS0-config.sh
+%{firstinsthome}/firstinst-early-02.d/590-minicom-ttyS0-config.sh
 
 
 
@@ -435,7 +437,7 @@ to firewalls, during first boot of the installed system.
 
 %files -n firstinst-nfs-config
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/600-nfs-config.sh
+%{firstinsthome}/firstinst-early-02.d/600-nfs-config.sh
 
 
 
@@ -450,7 +452,7 @@ the installed system.
 
 %files -n firstinst-nginx-off
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/610-nginx-off.sh
+%{firstinsthome}/firstinst-early-02.d/610-nginx-off.sh
 
 
 
@@ -465,7 +467,7 @@ first boot of the installed system.
 
 %files -n firstinst-prelink-off
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/620-prelink-off.sh
+%{firstinsthome}/firstinst-early-02.d/620-prelink-off.sh
 
 
 
@@ -480,7 +482,7 @@ first boot of the installed system.
 
 %files -n firstinst-root-gitconfig
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/630-root-gitconfig.sh
+%{firstinsthome}/firstinst-early-02.d/630-root-gitconfig.sh
 
 
 
@@ -496,7 +498,7 @@ installed system.
 
 %files -n firstinst-sshd-config
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/640-sshd-config.sh
+%{firstinsthome}/firstinst-early-02.d/640-sshd-config.sh
 
 
 
@@ -512,7 +514,7 @@ installed system.
 
 %files -n firstinst-tftp-config
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/650-tftp-config.sh
+%{firstinsthome}/firstinst-early-02.d/650-tftp-config.sh
 
 
 
@@ -528,7 +530,7 @@ boot of the installed system.
 
 %files -n firstinst-vsftpd-config
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/660-vsftpd-config.sh
+%{firstinsthome}/firstinst-early-02.d/660-vsftpd-config.sh
 
 
 
@@ -544,7 +546,7 @@ reasons), during first boot of the installed system.
 
 %files -n firstinst-yum-config
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/670-yum-config.sh
+%{firstinsthome}/firstinst-early-02.d/670-yum-config.sh
 
 
 
@@ -559,7 +561,7 @@ packages), during first boot of the installed system.
 
 %files -n firstinst-yum-epel-repo-config
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/680-yum-epel-repo-config.sh
+%{firstinsthome}/firstinst-early-02.d/680-yum-epel-repo-config.sh
 
 
 
@@ -575,11 +577,15 @@ first boot of the installed system.
 
 %files -n firstinst-yum-rpmforge-repo-config
 %defattr(-,root,root,-)
-%{_fi_confdir}/firstinst-early-02.d/690-yum-rpmforge-repo-config.sh
+%{firstinsthome}/firstinst-early-02.d/690-yum-rpmforge-repo-config.sh
 
 
 
 %changelog
+* Sat May  9 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.2-3
+- move all items to /usr/lib/firstinst, and scripts
+  to /usr/libexec/firstinst
+
 * Thu May  7 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.1-2
 - do not initialize etckeeper in /etc if initialized during
   live image generation

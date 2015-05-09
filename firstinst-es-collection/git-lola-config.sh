@@ -1,5 +1,5 @@
 #!/bin/bash
-source /etc/firstinst/firstinst-functions
+source /usr/lib/firstinst/firstinst-functions
 
 cat <<"__GITCONFIG__" >/etc/gitconfig
 [core]

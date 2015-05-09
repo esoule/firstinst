@@ -1,9 +1,7 @@
 
-%define _fi_confdir %{_sysconfdir}/firstinst
-
 Name:           livesys-service
 Version:        1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        LiveCD service scripts (for LiveCD runs only)
 
 Group:          System Environment/Base
@@ -69,6 +67,9 @@ rm -rf $RPM_BUILD_ROOT
 /etc/rc.d/init.d
 
 %changelog
+* Sat May  9 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.0-3
+- Remove cruft from spec file
+
 * Thu May  7 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.0-2
 - Provide better package descriptions
 
