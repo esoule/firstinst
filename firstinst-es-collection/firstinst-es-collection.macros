@@ -1,0 +1,20 @@
+
+%define firstinsthome /usr/lib/firstinst
+%define firstinstexec /usr/libexec/firstinst
+
+%define _fi_inst_dir()     install -dm 0755 %{buildroot}/%{firstinsthome}/%1.d\
+%{nil}
+%define _fi_inst_file()    install -pm 0644 %{_sourcedir}/%3 %{buildroot}/%{firstinsthome}/%1.d/%2-%3\
+%{nil}
+
+%define _fi_file_entry()   %{firstinsthome}/%1.d/%2-%3\
+%{nil}
+
+%define firstinst_summary_suffix() (runs during first boot)
+
+%define firstinst_this_package_contains_text() This package is part of First Install Scripts collection.\
+This package contains the scripts that were run during the\
+first boot of installed system. These files are of little\
+use on an already installed system.\
+%{nil}
+
