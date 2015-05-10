@@ -15,6 +15,10 @@ if [ -z "$HOME" ] ; then
     export HOME=/root
 fi
 
-/usr/bin/etckeeper commit "Second commit"    >/dev/null
+/usr/bin/etckeeper commit "Third commit"    >/dev/null
+
+if ! is_liveimg_run ; then
+    /usr/bin/etckeeper vcs gc    >/dev/null
+fi
 
 exit 0

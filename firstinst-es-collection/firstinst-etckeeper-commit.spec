@@ -4,8 +4,8 @@ Source101:      firstinst-es-collection.macros
 %include %{SOURCE101}
 
 Name:           firstinst-etckeeper-commit
-Version:        1.3
-Release:        4%{?dist}
+Version:        1.4
+Release:        5%{?dist}
 
 Group:          System Environment/Base
 License:        GPLv2
@@ -14,6 +14,7 @@ URL:            https://github.com/esoule
 
 Source200:      etckeeper-commit-early.sh
 Source201:      etckeeper-commit-late.sh
+Source202:      etckeeper-commit-wrap-up.sh
 
 Summary:        scripts that record changes in /etc with etckeeper %firstinst_summary_suffix
 
@@ -36,16 +37,22 @@ first boot of the installed system.
 rm -rf %{buildroot}
 
 %_fi_inst_dir     firstinst-early-02
+%_fi_inst_dir     firstinst-late-96
 %_fi_inst_dir     firstinst-late-99
 %_fi_inst_file    firstinst-early-02        050    etckeeper-commit-early.sh
-%_fi_inst_file    firstinst-late-99         950    etckeeper-commit-late.sh
+%_fi_inst_file    firstinst-late-96         940    etckeeper-commit-late.sh
+%_fi_inst_file    firstinst-late-99         950    etckeeper-commit-wrap-up.sh
 
 %files
 %defattr(-,root,root,-)
 %_fi_file_entry   firstinst-early-02        050    etckeeper-commit-early.sh
-%_fi_file_entry   firstinst-late-99         950    etckeeper-commit-late.sh
+%_fi_file_entry   firstinst-late-96         940    etckeeper-commit-late.sh
+%_fi_file_entry   firstinst-late-99         950    etckeeper-commit-wrap-up.sh
 
 %changelog
+* Sun May 10 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.4-5
+- perform an additional commit before firstboot is run
+
 * Sun May 10 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.3-4
 - split packages into separate spec files
 
