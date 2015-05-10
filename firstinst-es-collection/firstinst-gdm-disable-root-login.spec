@@ -3,7 +3,7 @@ Source101:      firstinst-es-collection.macros
 
 %include %{SOURCE101}
 
-Name:           firstinst-gdm-config
+Name:           firstinst-gdm-disable-root-login
 Version:        1.3
 Release:        4%{?dist}
 
@@ -12,7 +12,7 @@ License:        GPLv2
 
 URL:            https://github.com/esoule
 
-Source200:      gdm-config.sh
+Source200:      gdm-disable-root-login.sh
 
 Summary:        scripts that disallow root login in GNOME %firstinst_summary_suffix
 
@@ -35,13 +35,16 @@ during first boot of the installed system.
 rm -rf %{buildroot}
 
 %_fi_inst_dir     firstinst-early-02
-%_fi_inst_file    firstinst-early-02        540    gdm-config.sh
+%_fi_inst_file    firstinst-early-02        540    gdm-disable-root-login.sh
 
 %files
 %defattr(-,root,root,-)
-%_fi_file_entry   firstinst-early-02        540    gdm-config.sh
+%_fi_file_entry   firstinst-early-02        540    gdm-disable-root-login.sh
 
 %changelog
+* Sun May 10 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.3-5
+- rename package to firstinst-gdm-disable-root-login
+
 * Sun May 10 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.3-4
 - split packages into separate spec files
 
