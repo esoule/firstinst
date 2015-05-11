@@ -69,6 +69,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Mon May 11 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.1-3
 - remove livesys services after they have been executed
+- run liveinst using sudo, when clicking on desktop icon
 
 * Sat May  9 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.0-3
 - Remove cruft from spec file

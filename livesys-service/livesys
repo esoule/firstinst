@@ -182,7 +182,7 @@ FOE
 # /usr/share/applications/liveinst.desktop to user's Desktop
 # on X startup. We need to modify the source file before that, during live boot only
 if [ -s /usr/share/applications/liveinst.desktop ] ; then
-    sed -i -e "s/Terminal=false/Terminal=true/" /usr/share/applications/liveinst.desktop
+    sed -i -e "s,Terminal=false,Terminal=true,;s,Exec=/usr/bin/liveinst,Exec=/usr/bin/sudo /usr/sbin/liveinst,;"    /usr/share/applications/liveinst.desktop
     /sbin/restorecon /usr/share/applications/liveinst.desktop
 fi
 
