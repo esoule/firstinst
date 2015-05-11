@@ -7,7 +7,18 @@
 
 . /etc/init.d/functions
 
-if ! strstr "`cat /proc/cmdline`" liveimg || [ "$1" != "start" ] || [ -e /.liveimg-late-configured ] ; then
+if [ "$1" != "start" ] ; then
+    exit 0
+fi
+
+if [ -e /.liveimg-late-configured ] ; then
+    exit 0
+fi
+
+if ! strstr "`cat /proc/cmdline`" liveimg ; then
+## If we are not running from live image, remove services
+    /sbin/chkconfig --del livesys
+    /sbin/chkconfig --del livesys-late
     exit 0
 fi
 
@@ -44,4 +55,9 @@ fi
 if [ -n "$xdriver" ]; then
     exists system-config-display --noui --reconfig --set-depth=24 $xdriver
 fi
+
+## Remove services, to prevent from starting more than once,
+## e.g. when changing runlevels
+/sbin/chkconfig --del livesys
+/sbin/chkconfig --del livesys-late
 

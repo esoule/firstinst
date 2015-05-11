@@ -1,6 +1,6 @@
 
 Name:           livesys-service
-Version:        1.0
+Version:        1.1
 Release:        3%{?dist}
 Summary:        LiveCD service scripts (for LiveCD runs only)
 
@@ -67,6 +67,9 @@ rm -rf $RPM_BUILD_ROOT
 /etc/rc.d/init.d
 
 %changelog
+* Mon May 11 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.1-3
+- remove livesys services after they have been executed
+
 * Sat May  9 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.0-3
 - Remove cruft from spec file
 
