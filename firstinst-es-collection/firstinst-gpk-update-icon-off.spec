@@ -4,7 +4,7 @@ Source101:      firstinst-es-collection.macros
 %include %{SOURCE101}
 
 Name:           firstinst-gpk-update-icon-off
-Version:        1.3
+Version:        1.4
 Release:        4%{?dist}
 
 Group:          System Environment/Base
@@ -42,6 +42,10 @@ rm -rf %{buildroot}
 %_fi_file_entry   firstinst-early-02        560    gpk-update-icon-off.sh
 
 %changelog
+* Mon May 11 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.4-4
+- do not remove gpk-update-icon.desktop, add
+  X-GNOME-Autostart-enabled=false instead
+
 * Sun May 10 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.3-4
 - split packages into separate spec files
 
