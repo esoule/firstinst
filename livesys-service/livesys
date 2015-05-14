@@ -115,6 +115,10 @@ if [ -n "$configdone" ]; then
   exit 0
 fi
 
+if [ -x /usr/libexec/firstinst/firstinst-run-parts ] ; then
+    service_name=firstinst-early-00-live
+    action "Running ${service_name}" /usr/libexec/firstinst/firstinst-run-parts ${service_name}
+fi
 
 ## fix various bugs and issues
 # unmute sound card
