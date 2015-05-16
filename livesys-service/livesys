@@ -115,6 +115,20 @@ if [ -n "$configdone" ]; then
   exit 0
 fi
 
+# set the LiveCD hostname
+sed -i -e 's/HOSTNAME=localhost.localdomain/HOSTNAME=livedvd.centos/g' /etc/sysconfig/network
+/bin/hostname livedvd.centos
+
+## create the LiveCD default user
+# add default user with no password
+/usr/sbin/useradd -c "LiveCD default user" centoslive
+/usr/bin/passwd -d centoslive > /dev/null
+mkdir -p /home/centoslive/Desktop >/dev/null
+/sbin/restorecon /home/centoslive /home/centoslive/Desktop
+
+# give default user sudo privileges
+# moved to livesys-inst-02.sh
+
 if [ -x /usr/libexec/firstinst/firstinst-run-parts ] ; then
     service_name=firstinst-early-00-live
     action "Running ${service_name}" /usr/libexec/firstinst/firstinst-run-parts ${service_name}
@@ -160,17 +174,6 @@ touch /media/.hal-mtab
 # workaround clock syncing on shutdown that we don't want (#297421)
 sed -i -e 's/hwclock/no-such-hwclock/g' /etc/rc.d/init.d/halt
 
-# set the LiveCD hostname
-sed -i -e 's/HOSTNAME=localhost.localdomain/HOSTNAME=livedvd.centos/g' /etc/sysconfig/network
-/bin/hostname livedvd.centos
-
-## create the LiveCD default user
-# add default user with no password
-/usr/sbin/useradd -c "LiveCD default user" centoslive
-/usr/bin/passwd -d centoslive > /dev/null
-# give default user sudo privileges
-# moved to livesys-inst-02.sh
-
 ## configure default user's desktop
 # set up timed auto-login at 10 seconds
 cat >> /etc/gdm/custom.conf << FOE
@@ -191,7 +194,6 @@ if [ -s /usr/share/applications/liveinst.desktop ] ; then
 fi
 
 # add keyboard and display configuration utilities to the desktop
-mkdir -p /home/centoslive/Desktop >/dev/null
 cp /usr/share/applications/gnome-keyboard.desktop           /home/centoslive/Desktop/
 cp /usr/share/applications/gnome-display-properties.desktop /home/centoslive/Desktop/
 
