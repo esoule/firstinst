@@ -4,7 +4,7 @@ Source101:      firstinst-es-collection.macros
 %include %{SOURCE101}
 
 Name:           firstinst-adduser-linuxuser
-Version:        1.0
+Version:        1.1
 Release:        1%{?dist}
 
 Group:          System Environment/Base
@@ -21,8 +21,8 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
 %description
-Scripts that that add linuxuser user at User ID 1001
-and group ID 1001.
+Scripts that that add linuxuser user at User ID 500
+and group ID 500.
 
 %firstinst_this_package_contains_text
 
@@ -42,5 +42,8 @@ rm -rf %{buildroot}
 %_fi_file_entry   firstinst-early-02        710    adduser-linuxuser.sh
 
 %changelog
+* Sun May 17 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.1-1
+- change linuxuser ID to 500
+
 * Sat May 16 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.0-1
 - Initial Package
