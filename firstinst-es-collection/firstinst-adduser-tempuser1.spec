@@ -4,7 +4,7 @@ Source101:      firstinst-es-collection.macros
 %include %{SOURCE101}
 
 Name:           firstinst-adduser-tempuser1
-Version:        1.0
+Version:        1.1
 Release:        1%{?dist}
 
 Group:          System Environment/Base
@@ -42,5 +42,8 @@ rm -rf %{buildroot}
 %_fi_file_entry   firstinst-late-96         850    adduser-tempuser1.sh
 
 %changelog
+* Sun May 17 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.1-1
+- rewrite the script
+
 * Sat May 16 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.0-1
 - Initial Package
