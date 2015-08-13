@@ -121,10 +121,10 @@ sed -i -e 's/HOSTNAME=localhost.localdomain/HOSTNAME=livedvd.centos/g' /etc/sysc
 
 ## create the LiveCD default user
 # add default user with no password
-/usr/sbin/useradd -c "LiveCD default user" centoslive
-/usr/bin/passwd -d centoslive > /dev/null
-mkdir -p /home/centoslive/Desktop >/dev/null
-/sbin/restorecon /home/centoslive /home/centoslive/Desktop
+/usr/sbin/useradd -c "LiveCD default user" liveuser
+/usr/bin/passwd -d liveuser > /dev/null
+mkdir -p /home/liveuser/Desktop >/dev/null
+/sbin/restorecon /home/liveuser /home/liveuser/Desktop
 
 # give default user sudo privileges
 # moved to livesys-inst-02.sh
@@ -179,7 +179,7 @@ sed -i -e 's/hwclock/no-such-hwclock/g' /etc/rc.d/init.d/halt
 cat >> /etc/gdm/custom.conf << FOE
 [daemon]
 TimedLoginEnable=true
-TimedLogin=centoslive
+TimedLogin=liveuser
 TimedLoginDelay=10
 FOE
 
@@ -194,8 +194,8 @@ if [ -s /usr/share/applications/liveinst.desktop ] ; then
 fi
 
 # add keyboard and display configuration utilities to the desktop
-cp /usr/share/applications/gnome-keyboard.desktop           /home/centoslive/Desktop/
-cp /usr/share/applications/gnome-display-properties.desktop /home/centoslive/Desktop/
+cp /usr/share/applications/gnome-keyboard.desktop           /home/liveuser/Desktop/
+cp /usr/share/applications/gnome-display-properties.desktop /home/liveuser/Desktop/
 
 # disable screensaver locking
 gconftool-2 --direct --config-source=xml:readwrite:/etc/gconf/gconf.xml.defaults -s -t bool   /apps/gnome-screensaver/lock_enabled "false" >/dev/null
@@ -210,7 +210,7 @@ gconftool-2 --direct --config-source=xml:readwrite:/etc/gconf/gconf.xml.defaults
 # detecting disk partitions and logical volumes 
 CreateDesktopIconHD()
 {
-cat > /home/centoslive/Desktop/Local\ hard\ drives.desktop << EOF_HDicon
+cat > /home/liveuser/Desktop/Local\ hard\ drives.desktop << EOF_HDicon
 [Desktop Entry]
 Encoding=UTF-8
 Version=1.0
@@ -222,14 +222,14 @@ URL=/mnt/disc
 Icon=/usr/share/icons/gnome/32x32/devices/gnome-dev-harddisk.png
 EOF_HDicon
 
-chmod 755 /home/centoslive/Desktop/Local\ hard\ drives.desktop
+chmod 755 /home/liveuser/Desktop/Local\ hard\ drives.desktop
 }
 
 CreateDesktopIconLVM()
 {
-mkdir -p /home/centoslive/Desktop >/dev/null
+mkdir -p /home/liveuser/Desktop >/dev/null
 
-cat > /home/centoslive/Desktop/Local\ logical\ volumes.desktop << EOF_LVMicon
+cat > /home/liveuser/Desktop/Local\ logical\ volumes.desktop << EOF_LVMicon
 [Desktop Entry]
 Encoding=UTF-8
 Version=1.0
@@ -241,7 +241,7 @@ URL=/mnt/lvm
 Icon=/usr/share/icons/gnome/32x32/devices/gnome-dev-harddisk.png
 EOF_LVMicon
 
-chmod 755 /home/centoslive/Desktop/Local\ logical\ volumes.desktop
+chmod 755 /home/liveuser/Desktop/Local\ logical\ volumes.desktop
 }
 
 # don't mount disk partitions if 'nodiskmount' is given as a boot option
@@ -325,4 +325,4 @@ if ! strstr "`cat /proc/cmdline`" nolvmmount ; then
 fi
 
 # give back ownership to the default user
-chown -R centoslive:centoslive /home/centoslive
+chown -R liveuser:liveuser /home/liveuser

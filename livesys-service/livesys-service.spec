@@ -4,7 +4,7 @@ Source101:      firstinst-es-collection.macros
 %include %{SOURCE101}
 
 Name:           livesys-service
-Version:        1.5
+Version:        1.6
 Release:        3%{?dist}
 Summary:        LiveCD service scripts (for LiveCD runs only)
 
@@ -78,14 +78,17 @@ rm -rf %{buildroot}
 %_fi_file_entry   firstinst-early-02        430    developers-live.sh
 
 %changelog
+* Wed Aug 12 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.6-3
+- rename LiveCD username to match CentOS 7
+
 * Wed Aug 12 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.5-3
 - move LiveCD user adjustments from firstinst-developers-developers
 - improve desktop launchers install script
 
 * Sat May 16 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.4-3
-- change hostname and create centoslive user before running
+- change hostname and create LiveCD user before running
   firstinst-early-00-live.d scripts
-- add launchers to centoslive user desktop
+- add launchers to LiveCD user desktop
 
 * Wed May 13 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.2-3
 - run scripts from firstinst-early-00-live.d and
