@@ -3,5 +3,10 @@ source /usr/lib/firstinst/firstinst-functions
 
 launchers='vinagre.desktop gnome-nautilus.desktop gnome-terminal.desktop gedit.desktop'
 
-( cd /usr/share/applications/ && /usr/bin/install -m 0755 $launchers /home/centoslive/Desktop/ )
-
+(
+for f in ${launchers} ; do
+    if [ -e /usr/share/applications/${f} ] ; then
+        /usr/bin/install -m 0755 /usr/share/applications/${f} /home/centoslive/Desktop/
+    fi
+done
+)
