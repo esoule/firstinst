@@ -4,7 +4,7 @@ Source101:      firstinst-es-collection.macros
 %include %{SOURCE101}
 
 Name:           firstinst-developers-developers
-Version:        1.3
+Version:        1.4
 Release:        4%{?dist}
 
 Group:          System Environment/Base
@@ -21,9 +21,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
 %description
-Scripts that create developers group. On LiveCD, these
-scripts also add the centoslive user to developers, uucp,
-dialout and wireshark group.
+Scripts that create developers group.
 
 See also: package os-tweaks-sudo-developers grants the
 developers group to run certain things (iotop, networking)
@@ -47,6 +45,9 @@ rm -rf %{buildroot}
 %_fi_file_entry   firstinst-early-02        420    developers-developers.sh
 
 %changelog
+* Wed Aug 12 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.4-4
+- move LiveCD user adjustments to livesys-service package
+
 * Sun May 10 2015 Evgueni Souleimanov <esoule@100500.ca> - 1.3-4
 - split packages into separate spec files
 
