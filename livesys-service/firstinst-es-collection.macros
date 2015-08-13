@@ -6,6 +6,8 @@
 %{nil}
 %define _fi_inst_file()    install -pm 0644 %{_sourcedir}/%3 %{buildroot}/%{firstinsthome}/%1.d/%2-%3\
 %{nil}
+%define _fi_inst_file_from()   install -pm 0644 %{_sourcedir}/%4 %{buildroot}/%{firstinsthome}/%1.d/%2-%3\
+%{nil}
 
 %define _fi_file_entry()   %{firstinsthome}/%1.d/%2-%3\
 %{nil}
