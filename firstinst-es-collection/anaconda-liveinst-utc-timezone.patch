@@ -1,0 +1,64 @@
+diff -urN -U5 a/iw/timezone_gui.py b/iw/timezone_gui.py
+--- a/iw/timezone_gui.py	2016-05-11 07:38:19.000000000 -0400
++++ b/iw/timezone_gui.py	2016-12-20 23:06:58.000000000 -0500
+@@ -48,11 +48,11 @@
+         # Need to set the custom handler before loading the glade file or
+         # this won't work.
+         gtk.glade.set_custom_handler(self.custom_widget_handler)
+ 
+         # Set the default now.  We'll fix it for real in getScreen.
+-        self.default = "America/New York"
++        self.default = "Etc/UTC"
+ 
+         self.zonetab = zonetab.ZoneTab()
+ 
+         # Pull in a bunch of widgets.
+         self.xml = gtk.glade.XML("/usr/share/system-config-date/system-config-date.glade", domain="system-config-date")
+@@ -94,11 +94,11 @@
+         if not self.default:
+             self.default = anaconda.id.instLanguage.getDefaultTimeZone(anaconda.rootPath)
+             asUTC = 0
+ 
+         if (string.find(self.default, "UTC") != -1):
+-            self.default = "America/New_York"
++            self.default = "Etc/UTC"
+ 
+         self.default = self.default.replace("_", " ")
+ 
+         # Now fix the default we set when we made the timezone map widget.
+         self.tz.setCurrent(self.zonetab.findEntryByTZ(self.default))
+@@ -128,13 +128,13 @@
+                                   text=u'\u00B7', fill_color='yellow',
+                                   anchor=gtk.ANCHOR_CENTER,
+                                   weight=pango.WEIGHT_BOLD)
+                 self.markers[entry.tz] = marker
+ 
+-                if entry.tz == "America/New York":
+-                    # In case the /etc/sysconfig/clock is messed up, use New
+-                    # York as the default.
++                if entry.tz == "Etc/UTC":
++                    # In case the /etc/sysconfig/clock is messed up, use Etc/UTC
++                    # as the default.
+                     self.fallbackEntry = entry
+ 
+             iter = self.tzStore.insert_after(iter, [entry.translated_tz, entry.tz, entry])
+ 
+     def timezone_list_init (self, default):
+Binary files a/iw/timezone_gui.pyc and b/iw/timezone_gui.pyc differ
+Binary files a/iw/timezone_gui.pyo and b/iw/timezone_gui.pyo differ
+diff -urN -U5 a/lang-table b/lang-table
+--- a/lang-table	2016-05-11 07:38:20.000000000 -0400
++++ b/lang-table	2016-12-20 23:03:59.000000000 -0500
+@@ -9,11 +9,11 @@
+ Chinese(Traditional)	zh_TW	none	zh_TW.UTF-8	us	Asia/Taipei
+ Croatian	hr	latarcyrheb-sun16	hr_HR.UTF-8	croat	Europe/Zagreb
+ Czech	cs	latarcyrheb-sun16	cs_CZ.UTF-8	cz-lat2	Europe/Prague
+ Danish	da	latarcyrheb-sun16	da_DK.UTF-8	dk	Europe/Copenhagen
+ Dutch	nl	latarcyrheb-sun16	nl_NL.UTF-8	nl	Europe/Amsterdam
+-English	en	latarcyrheb-sun16	en_US.UTF-8	us	America/New_York
++English	en	latarcyrheb-sun16	en_US.UTF-8	us	Etc/UTC
+ Estonian	et	latarcyrheb-sun16	et_EE.UTF-8	et	Europe/Tallinn
+ Finnish	fi	latarcyrheb-sun16	fi_FI.UTF-8	fi	Europe/Helsinki
+ French	fr	latarcyrheb-sun16	fr_FR.UTF-8	fr-latin9	Europe/Paris
+ German	de	latarcyrheb-sun16	de_DE.UTF-8	de-latin1-nodeadkeys	Europe/Berlin
+ Greek	el	iso07u-16	el_GR.UTF-8	gr	Europe/Athens
